@@ -12,4 +12,4 @@
 
 
  ## Notes
- Code is heavy based on [Koheron](https://www.koheron.com/) but without the need of websocket remote load server, i removed all the code related to the server and keep it simple to play directly with the fpga
+ Code is heavily based on [Koheron](https://www.koheron.com/) but without the need of websocket remote load server, i removed all the code related to the server and keep it simple to play directly with the fpga
