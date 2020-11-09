@@ -1,8 +1,3 @@
-// I2C interface
-// (c) Koheron
-
-// See also https://www.kernel.org/doc/Documentation/spi/spidev
-
 
 
 #include <cstdio>

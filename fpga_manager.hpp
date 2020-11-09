@@ -1,6 +1,3 @@
-// Zynq bistream loader
-// (c) Koheron
-
 #ifndef __SERVER_CONTEXT_FPGA_MANAGER__
 #define __SERVER_CONTEXT_FPGA_MANAGER__
 

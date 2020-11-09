@@ -3,7 +3,7 @@
 #include <tuple>
 #include <cstdint>
 
-#include "zynq_fclk.hpp"
+#include "../zynq_fclk.hpp"
 
 extern "C" {
   #include <sys/mman.h> // PROT_READ, PROT_WRITE

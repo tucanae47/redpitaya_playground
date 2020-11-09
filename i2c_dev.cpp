@@ -1,4 +1,3 @@
-// (c) Koheron
 
 #include "i2c_dev.hpp"
 

@@ -1,7 +1,3 @@
-/// Driver memory manager
-///
-/// (c) Koheron
-
 #ifndef __DRIVERS_LIB_MEMORY_MANAGER_HPP__
 #define __DRIVERS_LIB_MEMORY_MANAGER_HPP__
 

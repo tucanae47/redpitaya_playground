@@ -11,7 +11,7 @@ extern "C" {
     #include <sys/mman.h>
 }
 
-#include "memory.hpp"
+#include "mempulse/memory.hpp"
 
 using  MemID = size_t;
 
