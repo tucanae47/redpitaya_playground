@@ -2,7 +2,7 @@
 #include <thread>
 #include <chrono>
 
-#include <context.hpp>
+#include "context.hpp"
 
 // http://www.xilinx.com/support/documentation/ip_documentation/axi_fifo_mm_s/v4_1/pg080-axi-fifo-mm-s.pdf
 namespace Fifo_regs {
@@ -82,20 +82,22 @@ class Pulse
     std::vector<uint32_t>& get_next_pulse(uint32_t n_pts) {
 
         fifo_acquisition_started = false;
-
         adc_data.resize(n_pts);
 
         if (n_pts == 0)
             return adc_data;
-
+        
         wait_for(1);
+        
         uint32_t data = read_fifo();
-
+        
         // Wait for the beginning of a pulse
         while ((data & (1 << 15)) != (1 << 15)) {
             wait_for(1);
             data = read_fifo();
+            printf("%d >", data);
         }
+        printf(" < data \n");
 
         adc_data[0] = data;
         wait_for(n_pts -1);
@@ -154,8 +156,10 @@ inline void Pulse::fifo_acquisition_thread()
 
         for (size_t i = 0; i < n_pts; i++) {
             fifo_buffer[fifo_buff_idx] = read_fifo();
+            // printf("%d", fifo_buffer[fifo_buff_idx]);
             fifo_buff_idx = (fifo_buff_idx + 1) % fifo_buff_size;
         }
+        // printf("\n");
         std::this_thread::sleep_for(fifo_sleep_for);
     }
 }
@@ -166,11 +170,25 @@ int main() {
     ctx.init();
     Pulse play(ctx);
     play.trig_pulse();
+    
     std::array<uint32_t, dac_size> dac_data;
     for(int i=0;i<dac_size;i++){
         dac_data.at(i)= 255;
     }
     play.set_dac_data(dac_data);
-    printf("SUCESS \n");
+    
+    uint32_t period = 125000;
+    uint32_t width = 128;
+    play.set_pulse_period(period);
+    play.set_pulse_width(width);
+    uint64_t n = 8192;
+    int i = 0;
+    while(i< 10){
+        printf("next pulse \n");
+        play.get_next_pulse(n);
+        printf("\n FIFO LENGHT %d \n",play.get_fifo_length());
+        i++;
+    }
+    
     return 0;
 }
